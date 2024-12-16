@@ -28,10 +28,10 @@ def read_labels(file_path):
 
 # Custom Dataset to include MNIST and operator images
 class CustomDataset(Dataset):
-    def __init__(self, mnist_images, mnist_labels, operator_dir, transform=None):
+    def __init__(self, mnist_images, mnist_labels, template_dir, transform=None):
         self.mnist_images = mnist_images
         self.mnist_labels = mnist_labels
-        self.operator_dir = operator_dir
+        self.template_dir = template_dir
         self.transform = transform
         self.operator_images, self.operator_labels = self.load_operator_images()
 
@@ -53,12 +53,12 @@ class CustomDataset(Dataset):
             "times": 12,
             "div": 13,
         }
-        for file in os.listdir(self.operator_dir):
+        for file in os.listdir(self.template_dir):
             if file.endswith(".png"):
                 file_key = file.split(".")[0]  # Extract the name without extension
                 if file_key in operator_map:
                     img = cv2.imread(
-                        os.path.join(self.operator_dir, file), cv2.IMREAD_GRAYSCALE
+                        os.path.join(self.template_dir, file), cv2.IMREAD_GRAYSCALE
                     )
                     img_resized = cv2.resize(img, (28, 28))
                     operator_images.append(img_resized)
@@ -88,16 +88,14 @@ class CustomDataset(Dataset):
 # Data transformations
 transform = None  # Already resizing to 32x32 manually
 
-# Load MNIST Dataset
-MNIST_PATH = "D:/Coding/ResearchAssignment/data/data/MNIST_dataset"
+# Change to correct MNIST path
+MNIST_PATH = "D:/Coding/ResearchAssignment/SSTestProject/data/MNIST_dataset"
 train_images = read_idx(os.path.join(MNIST_PATH, "train-images.idx3-ubyte"))
 train_labels = read_labels(os.path.join(MNIST_PATH, "train-labels.idx1-ubyte"))
 
-# Combine MNIST with operator images
-operator_dir = (
-    "D:/Coding/ResearchAssignment/data/data/images"  # Operator images directory
-)
-custom_dataset = CustomDataset(train_images, train_labels, operator_dir, transform)
+# Change to correct images directory
+TEMPLATE_DIR = "D:/Coding/ResearchAssignment/SSTestProject/data/images"
+custom_dataset = CustomDataset(train_images, train_labels, TEMPLATE_DIR, transform)
 custom_loader = DataLoader(custom_dataset, batch_size=64, shuffle=True)
 
 
@@ -127,10 +125,11 @@ class LeNet(nn.Module):
 # Initialize model, loss function, and optimizer
 model = LeNet().to(device)
 criterion = nn.CrossEntropyLoss()
+# use adam optimizer
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
-num_epochs = 20
+num_epochs = 30
 for epoch in range(num_epochs):
     model.train()
     running_loss = 0.0
@@ -178,8 +177,11 @@ def predict_digit_or_operator(roi, model):
 def process_video(video_path, model):
     cap = cv2.VideoCapture(video_path)
     recognized_sequence = []
-    last_prediction = None  # Track last prediction to avoid duplicates
-    frame_skip = 5  # Process every 5th frame
+
+    # Track last prediction to avoid duplicates
+    last_prediction = None
+    # Process every 5th frame
+    frame_skip = 5
 
     frame_count = 0
     while cap.isOpened():
@@ -203,7 +205,8 @@ def process_video(video_path, model):
 
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            if w > 10 and h > 10:  # Filter noise
+            # Filter noise
+            if w > 10 and h > 10:
                 roi = gray[y : y + h, x : x + w]
                 predicted = predict_digit_or_operator(roi, model)
 
@@ -225,6 +228,6 @@ def process_video(video_path, model):
         print(f"Error in evaluating expression: {e}")
 
 
-# Process video_1.mp4
-video_path = "D:/Coding/ResearchAssignment/data/data/video/video_1.mp4"  # Change to your video path
-process_video(video_path, model)
+# Change to your video path
+VIDEO_PATH = "D:/Coding/ResearchAssignment/SSTestProject/data/video/video_2.mp4"
+process_video(VIDEO_PATH, model)

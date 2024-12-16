@@ -98,6 +98,7 @@ def process_video_image_processing(video_path, template_dir):
         print(f"Error in evaluating expression: {e}")
 
 
-video_path = "D:/Coding/ResearchAssignment/data/data/video/video_1.mp4"
-template_dir = "D:/Coding/ResearchAssignment/data/data/images"
-process_video_image_processing(video_path, template_dir)
+# modify path to correct video and images paths
+VIDEO_PATH = "D:/Coding/ResearchAssignment/SSTestProject/data/video/video_2.mp4"
+TEMPLATE_DIR = "D:/Coding/ResearchAssignment/SSTestProject/data/images"
+process_video_image_processing(VIDEO_PATH, TEMPLATE_DIR)
