@@ -35,10 +35,9 @@ This repository implements a solution to accurately compute the result of an ari
   - `lenet_model.pth`: Saved model
   - `main.py`: Primary code for approach 2
 - `data/`: Contains datasets (MNIST, operator images) and sample videos.
-- `models/`: Pretrained models and saved checkpoints.
-- `src/`: Implementation of both approaches.
-  - `image_processing.py`: Approach 1 (traditional techniques).
-  - `lenet_model.py`: Approach 2 (deep learning-based solution).
+  -`images/`: Dataset of images
+  -`MNIST_dataset`: MNIST dataset
+  -`video`: 2 videos to use
 - `README.md`: Documentation.
 
 ## Environment Setup
