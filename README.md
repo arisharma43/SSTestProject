@@ -53,8 +53,8 @@ This repository implements a solution to accurately compute the result of an ari
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/video-arithmetic-solver.git
-   cd video-arithmetic-solver
+   git clone https://github.com/arisharma43/SSTestProject.git
+   cd SSTestProject
    ```
 2. Create a virtual environment and activate it:
    ```bash
