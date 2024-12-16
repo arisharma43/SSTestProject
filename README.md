@@ -29,18 +29,21 @@ This repository implements a solution to accurately compute the result of an ari
   - Ability to generalize across varied video inputs.
 
 ## Repository Structure
+- `approach_1/`: Approach 1 (traditional techniques)
+  - `main.py`: Primary code for approach 1
+- `approach_2/`: Approach 2 (LeNet solution)
+  - `lenet_model.pth`: Saved model
+  - `main.py`: Primary code for approach 2
 - `data/`: Contains datasets (MNIST, operator images) and sample videos.
-- `models/`: Pretrained models and saved checkpoints.
-- `src/`: Implementation of both approaches.
-  - `image_processing.py`: Approach 1 (traditional techniques).
-  - `lenet_model.py`: Approach 2 (deep learning-based solution).
+  -`images/`: Dataset of images
+  -`MNIST_dataset`: MNIST dataset
+  -`video`: 2 videos to use
 - `README.md`: Documentation.
 
 ## Environment Setup
 
 ### Prerequisites
 - Python 3.8 or higher
-- CUDA-enabled GPU (for training and inference with PyTorch)
 - Libraries:
   - OpenCV
   - PyTorch
@@ -49,8 +52,8 @@ This repository implements a solution to accurately compute the result of an ari
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/video-arithmetic-solver.git
-   cd video-arithmetic-solver
+   git clone https://github.com/arisharma43/SSTestProject.git
+   cd SSTestProject
    ```
 2. Create a virtual environment and activate it:
    ```bash
@@ -65,23 +68,26 @@ This repository implements a solution to accurately compute the result of an ari
 ## Running the Code
 
 ### Approach 1: Image Processing
-1. Navigate to the `src/` directory.
+1. Navigate to the `approach_1/` directory.
    ```bash
-   cd src
+   cd approach_1
    ```
 2. Run the script for Approach 1:
+   Make sure to modify the VIDEO_PATH and TEMPLATE_DIR paths (lines 102,103) to be the exact paths on your system
+   
    ```bash
-   python image_processing.py --video_path <path_to_video>
+   python main.py
    ```
-   Replace `<path_to_video>` with the path to your input video file.
 
 ### Approach 2: Deep Learning
-1. Train the LeNet model (optional, pretrained model is included):
+1. Navigate to the `approach_2/` directory.
    ```bash
-   python lenet_model.py --train --data_dir <path_to_data>
+   cd approach_2
    ```
-   Replace `<path_to_data>` with the directory containing MNIST and operator images.
 
-2. Process a video:
+2. Run the script for Approach 2:
+   Make sure to modify the MNIST_PATH, TEMPLATE_DIR, and VIDEO_PATH paths (lines 92,97,232) to be the exact paths on your system
+   
    ```bash
-   python lenet_model.py --video_path <path_to_video>
+   python main.py
+   ```
